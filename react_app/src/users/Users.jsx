@@ -51,8 +51,8 @@ function Users() {
     }
     
 
-    function btnInterest(user) {
-        axios.post(`${process.env.REACT_APP_API_URL}/api/v1/user/`, { userid: user.id }).then((data) => {
+    function btnInterest(user, is_reject=false) {
+        axios.post(`${process.env.REACT_APP_API_URL}/api/v1/user/`, { userid: user.id,is_reject }).then((data) => {
             getUsers()
         }).catch(function (error) {
             showError(error);
@@ -82,9 +82,17 @@ function Users() {
                                                 Send Interest
                                             </button>)
                                         } else if (user.interest_status === 'pending') {
-                                            return (<div>Pending or <button className="btn btn-sm btn-primary me-1" onClick={() => btnInterest(user)}>
-                                                Accept Interest
-                                            </button></div>)
+                                            return (
+                                                <div>
+                                                    Pending or 
+                                                    <button className="btn btn-sm btn-primary me-1" onClick={() => btnInterest(user)}>
+                                                        Accept Interest
+                                                    </button>
+                                                    <button className="btn btn-sm btn-danger me-1" onClick={() => btnInterest(user,true)}>
+                                                        Reject Interest
+                                                    </button>
+                                                </div>
+                                            )
                                         } else if (user.interest_status === 'accepted') {
                                             return (<button className="btn btn-sm btn-primary me-1" onClick={() => btnChat(user.id)}>Chat</button>)
                                         } else {

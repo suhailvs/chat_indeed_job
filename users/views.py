@@ -39,21 +39,19 @@ class UsersView(APIView):
             return Response({'status':'success','msg':''})
         elif interest.status == STATUS_CHOICES.PENDING:
             if interest.interest_receiver==request.user:
-                interest.status = STATUS_CHOICES.ACCEPTED
+                if request.data.get('is_reject'):
+                    interest.status = STATUS_CHOICES.REJECTED
+                else:
+                    interest.status = STATUS_CHOICES.ACCEPTED
                 interest.save()
                 return Response({'status':'success','msg':''})
             elif interest.interest_sender==request.user:
-                return Response({'status':'error','msg':'Error: You cannot accept your own request'}, status=400)
-    
-class CsrfExemptSessionAuthentication(TokenAuthentication):
-    def enforce_csrf(self, request):
-        return
+                return Response({'status':'error','msg':'Error: You cannot accept/reject your own request'}, status=400)
     
 class MessageModelViewSet(ModelViewSet):
     queryset = MessageModel.objects.all()
     serializer_class = MessageModelSerializer
-    allowed_methods = ('GET', 'POST', 'HEAD', 'OPTIONS')
-    authentication_classes = (CsrfExemptSessionAuthentication, )
+    authentication_classes = (TokenAuthentication, )
     pagination_class = PageNumberPagination
     permission_classes = [IsAuthenticated]
 
