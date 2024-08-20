@@ -40,7 +40,8 @@ function createExtraActions() {
 
     return {
         login: login(),
-        logout: logout()
+        logout: logout(),
+        register: register(),
     };
 
     function login() {
@@ -75,6 +76,13 @@ function createExtraActions() {
                 localStorage.removeItem('auth');
                 history.navigate('/account/login');
             }
+        );
+    }
+
+    function register() {
+        return createAsyncThunk(
+            `${name}/register`,
+            async (user) => await fetchWrapper.post(`${baseUrl}/registration/`, user)
         );
     }
 }

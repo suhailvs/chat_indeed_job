@@ -10,7 +10,7 @@ function Chat() {
   const socket = io('http://localhost:3010/', { path: '/socket.io', });
   const params = useParams();
   const room = params['id'];
-  const me = 'suhailvs';
+  const me = AUTH_TOKEN['username'];
   const uuid = Math.ceil(Math.random() * 1000000); 
   const inputRef = useRef();
   const scrollRef = useRef();
@@ -70,7 +70,7 @@ function Chat() {
                         </div>
                         <div className={`d-flex flex-row ${message.user === me ? "justify-content-end mb-4 pt-1" : "justify-content-start"}`}>
                           <div>
-                            <p className={`small p-2 ms-3 mb-3 rounded-3 ${message.user === me ? "text-white bg-warning" : "bg-body-tertiary"}`}>
+                            <p className={`small p-2 ms-3 mb-3 rounded-3 ${message.user === me ? "text-white bg-warning" : "bg-secondary"}`}>
                               {message.body}
                             </p>
                           </div>
