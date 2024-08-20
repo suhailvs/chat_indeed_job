@@ -1,0 +1,94 @@
+[
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$xlk946ATr3HmKrr28SvcTK$zkDQngBjds9tpoyHxYvDn1P7+KAMugqkGxm0hNoNoWQ=",
+    "last_login": "2024-08-18T16:55:30.992Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-08-18T14:26:09.584Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$CVKiplpWsuvbxlT67L25b9$g7GEY6Hl99dpjiVAkhkwnbL9m0wVdifVDbGfLGBWPU0=",
+    "last_login": "2024-08-18T14:30:12.102Z",
+    "is_superuser": false,
+    "username": "sumee",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-08-18T14:29:40.280Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$bOcvN61NZqSsfVMLv9rT1r$Ixmum/yP15vkshn/z8qwV3Kf91yzHsYTtPdwemhfprA=",
+    "last_login": "2024-08-18T14:30:06.577Z",
+    "is_superuser": false,
+    "username": "sufail",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-08-18T14:30:06.044Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$dKveelq8GCZG65hB2jX9AP$vkPuaRCZwKIjI9lYjOZtpwM4euA/Km6X6/kxXg1QXhs=",
+    "last_login": "2024-08-18T16:50:21.591Z",
+    "is_superuser": false,
+    "username": "sulaiman",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-08-18T16:50:11.070Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.chatroom",
+  "pk": 1,
+  "fields": {
+    "interest_sender": 2,
+    "interest_receiver": 3,
+    "status": "pending",
+    "timestamp": "2024-08-18T16:03:30.443Z"
+  }
+},
+{
+  "model": "users.chatroom",
+  "pk": 2,
+  "fields": {
+    "interest_sender": 2,
+    "interest_receiver": 4,
+    "status": "pending",
+    "timestamp": "2024-08-18T17:12:49.667Z"
+  }
+}
+]

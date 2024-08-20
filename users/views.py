@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.db.models import OuterRef, Subquery
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -17,13 +18,42 @@ class UsersView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         qs = User.objects.exclude(id=request.user.id)
-        return Response(qs.values('id','username'))
+        chatroom_interest_status = ChatRoom.objects.filter(
+            (Q(interest_sender=OuterRef('pk')) & Q(interest_receiver=request.user)) |
+            (Q(interest_sender=request.user) & Q(interest_receiver=OuterRef('pk')))
+        ).values('status')[:1]
 
+        users = qs.annotate(interest_status=Subquery(chatroom_interest_status))
+        # there are users who send interest that need to accept/decline
+        return Response(users.values('id','username','interest_status'))
+
+    def post(self, request):
+        touser=request.data['userid']
+        interest = ChatRoom.objects.filter(
+            (Q(interest_sender=touser) & Q(interest_receiver=request.user)) |
+            (Q(interest_sender=request.user) & Q(interest_receiver=touser))
+        ).first()
+        if 'getroom' in request.data: return Response({'status':'success','room':interest.id})
+        if not interest:
+            ChatRoom.objects.create(interest_sender=request.user, interest_receiver_id = touser, status = STATUS_CHOICES.PENDING)
+            return Response({'status':'success','msg':''})
+        elif interest.status == STATUS_CHOICES.PENDING:
+            if interest.interest_receiver==request.user:
+                interest.status = STATUS_CHOICES.ACCEPTED
+                interest.save()
+                return Response({'status':'success','msg':''})
+            elif interest.interest_sender==request.user:
+                return Response({'status':'error','msg':'Error: You cannot accept your own request'}, status=400)
+    
+class CsrfExemptSessionAuthentication(TokenAuthentication):
+    def enforce_csrf(self, request):
+        return
     
 class MessageModelViewSet(ModelViewSet):
     queryset = MessageModel.objects.all()
     serializer_class = MessageModelSerializer
-    authentication_classes = (TokenAuthentication, )
+    allowed_methods = ('GET', 'POST', 'HEAD', 'OPTIONS')
+    authentication_classes = (CsrfExemptSessionAuthentication, )
     pagination_class = PageNumberPagination
     permission_classes = [IsAuthenticated]
 
