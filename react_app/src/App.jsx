@@ -2,7 +2,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 
 import { history } from '_helpers';
 import { Nav, Alert, PrivateRoute } from '_components';
-import { Home } from 'home';
+import { Chat } from 'chat';
 import { AccountLayout } from 'account';
 import { UsersLayout } from 'users';
 
@@ -16,14 +16,15 @@ function App() {
 
     return (
         <div className="app-container bg-light">
-            <Nav />
+            <Nav /><br/><br/>
             <Alert />
             <div className="container pt-4 pb-4">
                 <Routes>
                     {/* private */}
                     <Route element={<PrivateRoute />}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="users/*" element={<UsersLayout />} />
+                        
+                        <Route path="/" element={<UsersLayout />} />
+                        <Route path="chat/:id" element={<Chat />} />
                     </Route>
                     {/* public */}
                     <Route path="account/*" element={<AccountLayout />} />
