@@ -4,8 +4,7 @@ import { history } from '_helpers';
 import { Nav, Alert, PrivateRoute } from '_components';
 import { Chat } from 'chat';
 import { AccountLayout } from 'account';
-import { UsersLayout } from 'users';
-
+import { Users } from 'users';
 export { App };
 
 function App() {
@@ -22,8 +21,7 @@ function App() {
                 <Routes>
                     {/* private */}
                     <Route element={<PrivateRoute />}>
-                        
-                        <Route path="/" element={<UsersLayout />} />
+                        <Route path="/" element={<Users />} />
                         <Route path="chat/:id" element={<Chat />} />
                     </Route>
                     {/* public */}

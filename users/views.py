@@ -1,25 +1,25 @@
-from django.db.models import Q
 from django.contrib.auth import get_user_model
-from django.http import JsonResponse
+from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from .models import MessageModel
+from .models import MessageModel, ChatRoom, STATUS_CHOICES
 from .serializers import MessageModelSerializer
 
 
-
-# Create your views here.
 User = get_user_model()
+class UsersView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        qs = User.objects.exclude(id=request.user.id)
+        return Response(qs.values('id','username'))
 
-def users(requset):
-    users = []
-    for user in User.objects.all():
-        users.append({ 'id':user.id, 'username':user.username, 'firstName':'', 'lastName':'' })
-    return JsonResponse(users,safe=False)
-
+    
 class MessageModelViewSet(ModelViewSet):
     queryset = MessageModel.objects.all()
     serializer_class = MessageModelSerializer

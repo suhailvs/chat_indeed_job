@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
 import { history } from '_helpers';
-import { userActions, alertActions } from '_store';
+import { authActions, alertActions } from '_store';
 
 export { Register };
 
@@ -36,7 +36,7 @@ function Register() {
     async function onSubmit(data) {
         dispatch(alertActions.clear());
         try {
-            await dispatch(userActions.register(data)).unwrap();
+            await dispatch(authActions.register(data)).unwrap();
 
             // redirect to login page and display success alert
             history.navigate('/account/login');
