@@ -12,5 +12,9 @@ $ ./manage.py runserver
 $ cd react_app
 $ npm i
 $ REACT_APP_API_URL='http://localhost:8000' npm start
-
+$ cd react_app/server
+$ npm i
+$ npm run start
 ```
+
+Now visit: http://localhost:3000
