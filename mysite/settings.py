@@ -145,7 +145,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
-
+REST_AUTH = {
+    'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer',
+}
 SITE_ID = 1 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = False
