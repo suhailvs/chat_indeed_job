@@ -1,0 +1,8 @@
+Django==5.1
+dj_rest_auth
+django-allauth
+drf-yasg
+setuptools
+djangorestframework==3.15.2
+requests
+django-cors-headers==4.3.1
