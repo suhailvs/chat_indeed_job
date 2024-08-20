@@ -50,9 +50,9 @@ async function handleResponse(response) {
             const logout = () => store.dispatch(authActions.logout());
             logout();
         }
-
+        // console.log(JSON.stringify(data))
         // get error message from body or default to response status
-        const error = (data && data.message) || response.status;
+        const error = JSON.stringify(data); //(data && data.message) || response.status;
         return Promise.reject(error);
     }
 

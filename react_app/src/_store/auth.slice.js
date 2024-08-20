@@ -36,7 +36,7 @@ function createReducers() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/dj-rest-auth`;
 
     return {
         login: login(),
@@ -49,7 +49,7 @@ function createExtraActions() {
             async function ({ username, password }, { dispatch }) {
                 dispatch(alertActions.clear());
                 try {
-                    const user = await fetchWrapper.post(`${baseUrl}/authenticate`, { username, password });
+                    const user = await fetchWrapper.post(`${baseUrl}/login/`, { username, password });
 
                     // set auth user in redux state
                     dispatch(authActions.setAuth(user));

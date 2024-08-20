@@ -39,7 +39,7 @@ function createExtraActions() {
     function register() {
         return createAsyncThunk(
             `${name}/register`,
-            async (user) => await fetchWrapper.post(`${baseUrl}/register`, user)
+            async (user) => await fetchWrapper.post(`${process.env.REACT_APP_API_URL}/dj-rest-auth/registration/`, user)
         );
     }
 
