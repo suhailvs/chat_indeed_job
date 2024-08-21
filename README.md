@@ -21,6 +21,11 @@ Now visit: http://localhost:3000
 
 ![setup](https://raw.github.com/suhailvs/chat_indeed_job/main/setup.gif)
 
+
+### Demo
+
+![demo](https://raw.github.com/suhailvs/chat_indeed_job/main/demo.gif)
+
 ### References
 
 Site | Description

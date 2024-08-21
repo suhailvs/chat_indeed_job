@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { authActions } from '_store';
 
 export { Users };
 
-  
+
 function Users() {
     const AUTH_TOKEN = JSON.parse(localStorage.getItem('auth'));
     axios.defaults.headers.common['Authorization'] = `Token ${AUTH_TOKEN['key']}`;
@@ -15,10 +15,10 @@ function Users() {
     const navigate = useNavigate();
     const logout = () => dispatch(authActions.logout());
     useEffect(() => {
-        
+
         getUsers()
     }, []);
-    
+
     function getUsers() {
         axios.get(`${process.env.REACT_APP_API_URL}/api/v1/user/`).then((data) => {
             setUsers(data?.data);
@@ -26,7 +26,7 @@ function Users() {
             showError(error);
         });
     }
-    
+
     function showError(error) {
         if (error.response) {
             console.log(error.response)
@@ -35,24 +35,24 @@ function Users() {
             } else {
                 alert(JSON.stringify(error.response.data));
             }
-            
+
         } else {
             console.log(error)
             alert('error');
-        }            
+        }
     }
 
     function btnChat(userid) {
-        axios.post(`${process.env.REACT_APP_API_URL}/api/v1/user/`, { userid: userid,getroom: true }).then((data) => {
+        axios.post(`${process.env.REACT_APP_API_URL}/api/v1/user/`, { userid: userid, getroom: true }).then((data) => {
             navigate(`/chat/${data?.data?.room}`);
         }).catch(function (error) {
             showError(error);
         });
     }
-    
 
-    function btnInterest(user, is_reject=false) {
-        axios.post(`${process.env.REACT_APP_API_URL}/api/v1/user/`, { userid: user.id,is_reject }).then((data) => {
+
+    function btnInterest(user, is_reject = false) {
+        axios.post(`${process.env.REACT_APP_API_URL}/api/v1/user/`, { userid: user.id, is_reject }).then((data) => {
             getUsers()
         }).catch(function (error) {
             showError(error);
@@ -84,11 +84,11 @@ function Users() {
                                         } else if (user.interest_status === 'pending') {
                                             return (
                                                 <div>
-                                                    Pending or 
+                                                    Pending or
                                                     <button className="btn btn-sm btn-primary me-1" onClick={() => btnInterest(user)}>
                                                         Accept Interest
                                                     </button>
-                                                    <button className="btn btn-sm btn-danger me-1" onClick={() => btnInterest(user,true)}>
+                                                    <button className="btn btn-sm btn-danger me-1" onClick={() => btnInterest(user, true)}>
                                                         Reject Interest
                                                     </button>
                                                 </div>
