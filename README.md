@@ -16,6 +16,8 @@ $ cd react_app/server
 $ npm i
 $ npm run start
 ```
+Now visit: http://localhost:3000
+
 
 ![setup](https://raw.github.com/suhailvs/chat_indeed_job/main/setup.gif)
 
